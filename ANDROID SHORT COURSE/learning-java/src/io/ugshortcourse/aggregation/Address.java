@@ -1,0 +1,20 @@
+package io.ugshortcourse.aggregation;
+
+class Address
+{
+    int streetNum;
+    String city;
+    String state;
+    String country;
+    Address(int street, String c, String st, String coun)
+    {
+        this.streetNum=street;
+        this.city =c;
+        this.state = st;
+        this.country = coun;
+    }
+
+
+}
+
+
