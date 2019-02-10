@@ -22,12 +22,12 @@ https://codelabs.developers.google.com/codelabs/android-room-with-a-view/
 https://firebase.google.com/docs/
 
 # Glide
-
+https://bumptech.github.io/glide/
 
 # Koin
-
+https://beta.insert-koin.io/
 
 # Photoview
-
+https://github.com/chrisbanes/PhotoView
 
 # Chat Application Video Tutorials
