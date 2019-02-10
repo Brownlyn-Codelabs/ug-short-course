@@ -20,3 +20,14 @@ https://codelabs.developers.google.com/codelabs/android-room-with-a-view/
 
 # Firebase 
 https://firebase.google.com/docs/
+
+# Glide
+
+
+# Koin
+
+
+# Photoview
+
+
+# Chat Application Video Tutorials
