@@ -14,7 +14,7 @@
                                                        android:layout_height="wrap_content"
                                                        style="@style/TodoAppTheme.Button"
                                                        android:text="Add todo"
-                                                       app:backgroundTint="?attr/colorAccent"
+                                                       app:backgroundTint="@color/colorAccent"
                                                        android:textAllCaps="false"
                                                        android:onClick="addNewTodo"
                                                        app:icon="@drawable/ic_add"/>
@@ -22,16 +22,13 @@
     <!--Toolbar: Shows the title of the application-->
     <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
                                        android:layout_height="wrap_content"
+
                                        android:elevation="0dp">
 
         <!--Customized TextView-->
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:text="@string/app_name"
-                  android:fontFeatureSettings="smcp,onum"
-                  android:textSize="18sp"
-                  android:textColor="@android:color/black"
-                  android:gravity="center_horizontal"
-                  android:fontFamily="@font/nunito_sans_semibold"/>
+                  style="@style/TodoAppTheme.Toolbar"/>
 
     </androidx.appcompat.widget.Toolbar>
 
