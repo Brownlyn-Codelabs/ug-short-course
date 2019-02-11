@@ -2,6 +2,7 @@ package io.codelabs.todoapplication.ui.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +59,11 @@ class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapt
                 if (holder is TodoViewHolder) {
                     val todoItem = dataset[position]
                     holder.view.completed_todo_item_title.text = todoItem.content
-                    holder.view.completed_todo_item_timestamp.text = todoItem.content
+                    holder.view.completed_todo_item_timestamp.text = DateUtils.getRelativeTimeSpanString(
+                        todoItem.timestamp,
+                        System.currentTimeMillis(),
+                        DateUtils.SECOND_IN_MILLIS
+                    )
                 }
             }
 
@@ -66,7 +71,12 @@ class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapt
                 if (holder is TodoViewHolder) {
                     val todoItem = dataset[position]
                     holder.view.todo_item_title.text = todoItem.content
-                    holder.view.todo_item_timestamp.text = todoItem.content
+                    holder.view.todo_item_timestamp.text =
+                        DateUtils.getRelativeTimeSpanString(
+                            todoItem.timestamp,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS
+                        )
 
                     // Pass data between activities
                     holder.view.setOnClickListener {

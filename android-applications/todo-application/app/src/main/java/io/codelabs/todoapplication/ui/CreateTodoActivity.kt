@@ -33,6 +33,12 @@ class CreateTodoActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { finishAfterTransition() }
         viewModel = ViewModelProviders.of(this, TodoTaskFactory(application as TodoApplication))
             .get(TodoTaskViewModel::class.java)
+
+        val intent = intent
+        if (intent.hasExtra(EXTRA_ITEM)) {
+            val todoItem = intent.getParcelableExtra<TodoItem>(EXTRA_ITEM)
+            todo_input.setText(todoItem.content)
+        }
     }
 
     fun saveTodoItem(v: View?) {
@@ -57,5 +63,9 @@ class CreateTodoActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    companion object {
+        const val EXTRA_ITEM = "EXTRA_ITEM"
     }
 }
