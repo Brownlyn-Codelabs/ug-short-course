@@ -13,7 +13,7 @@ interface TodoAppDao {
     /**
      * Create a new [TodoItem]
      */
-    @Insert/*(onConflict = OnConflictStrategy.REPLACE)*/
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun createTodoItem(todoItem: TodoItem)
 
     /**
@@ -43,7 +43,7 @@ interface TodoAppDao {
     /**
      * Update [todoItem]
      */
-    @Update/*(onConflict = OnConflictStrategy.REPLACE)*/
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTodoItem(todoItem: TodoItem)
 
 }
