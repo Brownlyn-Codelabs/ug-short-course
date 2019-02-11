@@ -50,7 +50,10 @@ class CreateTodoActivity : AppCompatActivity() {
             this@CreateTodoActivity.toast(message = "Please enter a task todo")
         } else {
             ioScope.launch {
-                viewModel.insert(TodoItem(content))
+                if (intent.hasExtra(EXTRA_ITEM)) viewModel.update(intent.getParcelableExtra(EXTRA_ITEM))
+                else viewModel.insert(TodoItem(content))
+
+                // Update UI with callback
                 uiScope.launch {
                     todo_input.text?.clear()
                     this@CreateTodoActivity.toast(message = "Item added successfully")
