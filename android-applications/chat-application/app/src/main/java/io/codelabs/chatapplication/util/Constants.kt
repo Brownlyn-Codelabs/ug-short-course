@@ -17,6 +17,7 @@ val WEB_CLIENT_ID: String =
 const val USER_REF = "chat-users"
 const val USER_CHATS_REF = "chat-users/%s/chats"
 const val USER_CHATS_DOC_REF = "chat-users/%s/chats/%s"
+const val USER_MESSAGES_DOC_REF = "chat-users/%s/chats/%s/messages"
 const val USER_DOC_REF = "chat-users/%s"
 
 

@@ -32,7 +32,8 @@
                   android:theme="@style/ChatAppTheme.Home"/>
         <activity android:name=".view.PreviewActivity"
                   android:theme="@style/ChatAppTheme.Home.Preview"/>
-        <activity android:name=".view.MessagingActivity"/>
+        <activity android:name=".view.MessagingActivity"
+                  android:theme="@style/ChatAppTheme.Home"/>
     </application>
 
 </manifest>
