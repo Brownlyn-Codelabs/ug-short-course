@@ -2,6 +2,7 @@
   <dictionary name="User">
     <words>
       <w>chatapp</w>
+      <w>dataset</w>
       <w>firebase</w>
     </words>
   </dictionary>

@@ -1,7 +1,6 @@
 package io.codelabs.chatapplication.core
 
 import android.app.Application
-import com.crashlytics.android.Crashlytics
 import com.google.firebase.FirebaseApp
 import io.codelabs.chatapplication.module.appModule
 import io.codelabs.chatapplication.module.firebaseModule

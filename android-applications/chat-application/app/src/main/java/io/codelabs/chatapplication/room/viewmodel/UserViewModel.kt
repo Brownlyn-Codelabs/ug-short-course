@@ -20,6 +20,8 @@ class UserViewModel constructor(application: ChatApplication) : AndroidViewModel
 
     fun deleteAll(vararg user: User) = repo.deleteAll(*user)
 
+    fun getCurrentUser(id: String) = repo.getCurrentUser(id)
+
     fun getAllUsers() = repo.getAllUsers()
 
 }

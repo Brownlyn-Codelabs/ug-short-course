@@ -15,7 +15,7 @@ fun debugLog(msg: Any?) = println("ChatApp -> ${msg.toString()}")
 fun Context.toast(message: Any? = "", @StringRes resId: Int = R.string.empty_text) = Toast.makeText(
     this,
     if (message.toString().isEmpty()) getString(resId) else message.toString(),
-    Toast.LENGTH_LONG
+    Toast.LENGTH_SHORT
 ).show()
 
 fun Activity.intentTo(target: Class<out BaseActivity>, isFinished: Boolean = false) {

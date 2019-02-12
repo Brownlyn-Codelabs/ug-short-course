@@ -20,6 +20,8 @@ class UserRepository constructor(application: ChatApplication) {
 
     fun deleteAll(vararg user: User) = dao.deleteAllUser(*user)
 
+    fun getCurrentUser(id: String) = dao.getCurrentUser(id)
+
     fun getAllUsers() = dao.getAllUsers()
 
 }

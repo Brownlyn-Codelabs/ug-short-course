@@ -5,4 +5,7 @@
     <string name="app_continue">Continue</string>
     <string name="login">Login</string>
     <string name="login_prompt">Login to get started</string>
+    <string name="chats">Chats</string>
+    <string name="all_users">All Users</string>
+    <string name="blocked">Blocked</string>
 </resources>

@@ -18,7 +18,7 @@ abstract class BaseFragment constructor() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutId, container, false)
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ abstract class BaseFragment constructor() : Fragment() {
         onViewCreated(savedInstanceState, view, requireActivity() as BaseActivity)
     }
 
-    abstract val layoutId: Int
+    abstract fun getLayoutId(): Int
 
     abstract fun onViewCreated(instanceState: Bundle?, view: View, rootActivity: BaseActivity)
 
