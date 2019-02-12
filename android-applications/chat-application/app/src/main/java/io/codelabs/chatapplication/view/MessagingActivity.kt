@@ -2,6 +2,9 @@ package io.codelabs.chatapplication.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import io.codelabs.chatapplication.R
@@ -9,9 +12,11 @@ import io.codelabs.chatapplication.data.Message
 import io.codelabs.chatapplication.data.User
 import io.codelabs.chatapplication.glide.GlideApp
 import io.codelabs.chatapplication.util.*
+import io.codelabs.chatapplication.view.adapter.MessagesAdapter
 import kotlinx.android.synthetic.main.activity_messaging.*
 
-class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging) : BaseActivity() {
+class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging) : BaseActivity(),
+    MessagesAdapter.OnItemClickListener {
 
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
@@ -74,6 +79,12 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
     }
 
     private fun fetchMessages(key: String) {
+        val adapter = MessagesAdapter(this, this)
+        message_grid.adapter = adapter
+        message_grid.layoutManager = LinearLayoutManager(this)
+        message_grid.setHasFixedSize(true)
+        message_grid.itemAnimator = DefaultItemAnimator()
+
         firestore.collection(String.format(USER_MESSAGES_DOC_REF, database.key, key))
             .addSnapshotListener(this@MessagingActivity) { snapshot, exception ->
                 if (exception != null) {
@@ -82,10 +93,19 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                     return@addSnapshotListener
                 }
 
+                // Load message from snapshot and append to UI
                 val messages = snapshot?.toObjects(Message::class.java)
-                debugLog(messages)
+                if (messages != null) adapter.addData(messages.toMutableList())
 
             }
+    }
+
+    fun sendMessage(v: View?) {}
+
+    fun addFile(v: View?) {}
+
+    override fun onClick(item: Message) {
+
     }
 
     companion object {
