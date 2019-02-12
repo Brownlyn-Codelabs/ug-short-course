@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     xmlns:tools="http://schemas.android.com/tools"
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
-                                                     xmlns:tools="http://schemas.android.com/tools"
                                                      android:fitsSystemWindows="true"
                                                      android:id="@+id/container">
 
@@ -64,6 +64,17 @@
                   android:fontFeatureSettings="smcp,onum"
                   android:textColor="@color/text_secondary_dark"
                   android:fontFamily="@font/nunito_sans_semibold"/>
+
+        <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           app:layout_constraintTop_toBottomOf="@id/user_status"
+                                                           app:layout_constraintStart_toStartOf="parent"
+                                                           app:layout_constraintEnd_toEndOf="parent"
+                                                           style="@style/ChatAppTheme.Button"
+                                                           app:icon="@drawable/ic_chat"
+                                                           android:text="Add to chats"
+                                                           android:id="@+id/chat_button"
+                                                           app:iconPadding="@dimen/padding_normal"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
