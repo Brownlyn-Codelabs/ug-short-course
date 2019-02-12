@@ -2,4 +2,6 @@
     <string name="app_name">Chat Application</string>
     <string name="welcome_app_name">Welcome to Chat Application</string>
     <string name="empty_text"/>
+    <string name="app_continue">Continue</string>
+    <string name="login">Login</string>
 </resources>

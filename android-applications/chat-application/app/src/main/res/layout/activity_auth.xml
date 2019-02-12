@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:tools="http://schemas.android.com/tools"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:id="@+id/container"
                                                    android:padding="@dimen/padding_normal"
+                                                   android:focusableInTouchMode="true"
                                                    tools:context=".view.AuthActivity">
 
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/welcome_app_name"
+              android:padding="@dimen/padding_normal"
+              android:id="@+id/app_title"
+              android:textSize="22sp"
+              android:layout_marginTop="@dimen/spacing_large"
+              app:layout_constraintTop_toTopOf="parent"
+              android:gravity="center_horizontal"/>
+
+    <!--Username-->
+    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                                                           android:id="@+id/username_container"
+                                                           android:layout_marginTop="@dimen/spacing_large"
+                                                           app:layout_constraintTop_toBottomOf="@id/app_title">
+
+        <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:hint="Username"
+                                                                 android:inputType="textCapWords|textAutoComplete|textAutoCorrect"
+                                                                 android:fontFamily="@font/nunito_sans_semibold"
+                                                                 android:id="@+id/username"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--Username-->
+    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
+                                                           android:layout_height="wrap_content"
+                                                           android:id="@+id/password_container"
+                                                           app:layout_constraintTop_toBottomOf="@id/username_container">
+
+        <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
+                                                                 android:layout_height="wrap_content"
+                                                                 android:hint="Password"
+                                                                 android:inputType="textPassword"
+                                                                 android:fontFamily="@font/nunito_sans_semibold"
+                                                                 android:id="@+id/password"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton android:layout_width="200dp"
+                                                       android:layout_height="wrap_content"
+                                                       style="@style/ChatAppTheme.Button.Other"
+                                                       android:text="@string/login"
+                                                       app:layout_constraintTop_toBottomOf="@id/password_container"
+                                                       app:layout_constraintStart_toStartOf="parent"
+                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       android:layout_marginTop="@dimen/spacing_large"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
