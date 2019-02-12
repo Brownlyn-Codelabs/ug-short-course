@@ -11,6 +11,8 @@ class TodoTaskRepository constructor(application: TodoApplication) {
 
     fun delete(todoItem: TodoItem) = /*ioScope.launch { dao.deleteItem(todoItem) }*/ dao.deleteItem(todoItem)
 
+    fun getSingleItem(id: Int) = /*ioScope.launch { dao.deleteItem(todoItem) }*/ dao.getTodoItem(id)
+
     fun update(todoItem: TodoItem) = /*ioScope.launch { dao.updateTodoItem(todoItem) }*/ dao.updateTodoItem(todoItem)
 
     fun getItems() =  /*ioScope.launch { dao.getAllItems() }*/ dao.getAllItems()

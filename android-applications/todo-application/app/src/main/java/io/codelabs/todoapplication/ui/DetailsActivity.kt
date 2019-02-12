@@ -7,12 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import io.codelabs.todoapplication.R
 import io.codelabs.todoapplication.core.TodoApplication
 import io.codelabs.todoapplication.data.TodoItem
 import io.codelabs.todoapplication.room.viewmodel.TodoTaskViewModel
 import io.codelabs.todoapplication.room.viewmodel.factory.TodoTaskFactory
+import io.codelabs.todoapplication.util.debugLog
 import io.codelabs.todoapplication.util.toast
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.coroutines.CoroutineScope
@@ -43,15 +45,31 @@ class DetailsActivity : AppCompatActivity() {
         val intent = intent
         if (intent.hasExtra(EXTRA_ITEM)) {
             todoItem = intent.getParcelableExtra(EXTRA_ITEM)
+            bindItem()
 
-            todo_detail_title.text = todoItem.content
-            todo_detail_timestamp.text = DateUtils.getRelativeTimeSpanString(
-                todoItem.timestamp,
-                System.currentTimeMillis(),
-                DateUtils.SECOND_IN_MILLIS
-            )
-
+            ioScope.launch {
+                val liveData = viewModel.getTodoItem(todoItem.id)
+                uiScope.launch {
+                    liveData.observe(this@DetailsActivity,
+                        Observer<TodoItem?> {
+                            if (it != null) {
+                                todoItem = it
+                                debugLog("Binding from observer. $it")
+                                bindItem()
+                            }
+                        })
+                }
+            }
         }
+    }
+
+    private fun bindItem() {
+        todo_detail_title.text = todoItem.content
+        todo_detail_timestamp.text = DateUtils.getRelativeTimeSpanString(
+            todoItem.timestamp,
+            System.currentTimeMillis(),
+            DateUtils.SECOND_IN_MILLIS
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

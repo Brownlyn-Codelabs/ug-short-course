@@ -9,4 +9,6 @@
         like to keep it so short for now. And by short I mean... you know!
     </string>
     <string name="done">Mark as done</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>

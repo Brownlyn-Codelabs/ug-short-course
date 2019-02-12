@@ -43,7 +43,7 @@ interface TodoAppDao {
     /**
      * Update [todoItem]
      */
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateTodoItem(todoItem: TodoItem)
 
 }
