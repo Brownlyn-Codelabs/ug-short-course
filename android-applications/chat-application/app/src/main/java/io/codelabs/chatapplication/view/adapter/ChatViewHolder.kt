@@ -6,4 +6,4 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * [RecyclerView.ViewHolder] for empty states
  */
-class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view)
+class ChatViewHolder(val view: View) : RecyclerView.ViewHolder(view)

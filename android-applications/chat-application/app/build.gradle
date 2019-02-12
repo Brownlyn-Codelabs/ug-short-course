@@ -81,5 +81,7 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
     // Play Services
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    // PhotoView
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }
 apply plugin: 'com.google.gms.google-services'

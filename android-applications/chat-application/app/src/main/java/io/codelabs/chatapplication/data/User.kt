@@ -1,6 +1,7 @@
 package io.codelabs.chatapplication.data
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
@@ -18,5 +19,10 @@ data class User(
     var timestamp: Long = System.currentTimeMillis(),
     var lastSeen: Long = System.currentTimeMillis(),
     var status: String = ""
-) : BaseDataModel
+) : BaseDataModel {
+
+    @Ignore
+    constructor() : this("", "")
+
+}
 

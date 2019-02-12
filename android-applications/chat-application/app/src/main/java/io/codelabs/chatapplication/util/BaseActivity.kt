@@ -23,9 +23,9 @@ abstract class BaseActivity : AppCompatActivity() {
     protected val ioScope = CoroutineScope(Dispatchers.IO + job)
     protected val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-    protected val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    protected val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
-    protected val bucket: FirebaseStorage by lazy { FirebaseStorage.getInstance() }
+    val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    val firestore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+    val bucket: FirebaseStorage by lazy { FirebaseStorage.getInstance() }
     val database: UserDatabase by lazy { UserDatabase.getInstance(application as ChatApplication) }
 
     protected lateinit var userViewModel: UserViewModel
