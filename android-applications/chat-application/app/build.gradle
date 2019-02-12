@@ -4,6 +4,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release_config {
+            keyAlias 'key0'
+            keyPassword 'quabynah'
+            storeFile file('F:/GitHub/ug-short-course/android-applications/chat-application/keystore/chatapp.jks')
+            storePassword 'quabynah'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "io.codelabs.chatapplication"
@@ -11,6 +19,7 @@ android {
         targetSdkVersion 28
         versionCode gitCommitCount
         versionName gitSha
+        archivesBaseName = "chat-app"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
@@ -21,9 +30,9 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release_config
         }
     }
-
     androidExtensions {
         experimental = true
     }
@@ -33,10 +42,10 @@ dependencies {
     def koin = "2.0.0-beta-1"
     def room = "2.1.0-alpha04"
     def lifecycle = "2.0.0"
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def glide = "4.8.0"
+    def gson = "2.8.4"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     // Android Libraries
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'androidx.core:core-ktx:1.1.0-alpha04'
@@ -45,19 +54,21 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
-
     // Koin
     implementation "org.koin:koin-android:$koin"
     implementation "org.koin:koin-androidx-scope:$koin"
     implementation "org.koin:koin-androidx-viewmodel:$koin"
-
     // Room
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-coroutines:$room"
-
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+    // Gson
+    implementation "com.google.code.gson:gson:$gson"
 }

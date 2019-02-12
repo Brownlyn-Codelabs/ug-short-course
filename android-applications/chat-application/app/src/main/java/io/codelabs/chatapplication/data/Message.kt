@@ -1,10 +1,12 @@
 package io.codelabs.chatapplication.data
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Message(
     override var key: String,
+    @SerializedName("message")
     override var name: String,/*message*/
     var timestamp: Long = System.currentTimeMillis(),
     var read: Boolean = false,
