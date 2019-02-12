@@ -18,7 +18,7 @@ import io.codelabs.chatapplication.view.ProfileActivity
 import kotlinx.android.synthetic.main.item_chat.view.*
 import kotlinx.android.synthetic.main.item_empty.view.*
 
-class UserAdapter constructor(private val host: BaseActivity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class UserAdapter constructor(private val host: BaseActivity, private val listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val TYPE_EMPTY = -1
         private const val TYPE_DATA = 0
@@ -78,9 +78,7 @@ class UserAdapter constructor(private val host: BaseActivity) : RecyclerView.Ada
                             }
 
                             holder.view.setOnClickListener {
-                                val bundle = Bundle(0)
-                                bundle.putParcelable(ProfileActivity.EXTRA_USER, item)
-                                host.intentTo(ProfileActivity::class.java, bundle)
+                               listener.onClick(item)
                             }
                         }
                     }
@@ -103,5 +101,11 @@ class UserAdapter constructor(private val host: BaseActivity) : RecyclerView.Ada
             dataset.add(item)
             notifyItemRangeChanged(0, items.size)
         }
+    }
+
+    interface ItemClickListener {
+
+        fun onClick(item: BaseDataModel)
+
     }
 }
