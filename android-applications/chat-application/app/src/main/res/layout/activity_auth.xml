@@ -5,7 +5,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    android:id="@+id/container"
-                                                   android:padding="@dimen/padding_normal"
+                                                   android:padding="@dimen/padding_large"
                                                    android:focusableInTouchMode="true"
                                                    tools:context=".view.AuthActivity">
 
