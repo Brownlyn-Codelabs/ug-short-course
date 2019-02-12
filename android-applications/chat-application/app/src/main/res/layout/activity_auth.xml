@@ -9,22 +9,19 @@
                                                    android:focusableInTouchMode="true"
                                                    tools:context=".view.AuthActivity">
 
-    <TextView android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/welcome_app_name"
-              android:padding="@dimen/padding_normal"
-              android:id="@+id/app_title"
-              android:textSize="22sp"
-              android:layout_marginTop="@dimen/spacing_large"
-              app:layout_constraintTop_toTopOf="parent"
-              android:gravity="center_horizontal"/>
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="250dp"
+               android:layout_marginTop="@dimen/spacing_large"
+               app:layout_constraintTop_toTopOf="parent"
+               android:id="@+id/app_image"
+               android:src="@drawable/ug_chat_logo"/>
 
     <!--Username-->
     <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent"
                                                            android:layout_height="wrap_content"
                                                            android:id="@+id/username_container"
-                                                           android:layout_marginTop="@dimen/spacing_large"
-                                                           app:layout_constraintTop_toBottomOf="@id/app_title">
+                                                           android:layout_marginTop="@dimen/padding_large"
+                                                           app:layout_constraintTop_toBottomOf="@id/app_image">
 
         <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
                                                                  android:layout_height="wrap_content"
