@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
@@ -71,4 +72,14 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide"
     // Gson
     implementation "com.google.code.gson:gson:$gson"
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-firestore:18.0.1'
+    implementation 'com.google.firebase:firebase-storage:16.0.5'
+    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    // Play Services
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

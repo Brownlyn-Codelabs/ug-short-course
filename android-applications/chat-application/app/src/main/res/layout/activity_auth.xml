@@ -26,7 +26,7 @@
         <com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent"
                                                                  android:layout_height="wrap_content"
                                                                  android:hint="Username"
-                                                                 android:inputType="textCapWords|textAutoComplete|textAutoCorrect"
+                                                                 android:inputType="textEmailAddress|textAutoComplete|textAutoCorrect"
                                                                  android:fontFamily="@font/nunito_sans_semibold"
                                                                  android:id="@+id/username"/>
 
@@ -49,13 +49,26 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton android:layout_width="200dp"
+    <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                       android:id="@+id/login_button"
                                                        android:layout_height="wrap_content"
                                                        style="@style/ChatAppTheme.Button.Other"
                                                        android:text="@string/login"
+                                                       android:enabled="false"
                                                        app:layout_constraintTop_toBottomOf="@id/password_container"
-                                                       app:layout_constraintStart_toStartOf="parent"
-                                                       app:layout_constraintEnd_toEndOf="parent"
+                                                       app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
+                                                       android:id="@+id/google_login_button"
+                                                       android:layout_height="wrap_content"
+                                                       android:text="Continue with Google"
+                                                       app:cornerRadius="@dimen/padding_normal"
+                                                       style="@style/ChatAppTheme.Button"
+                                                       android:backgroundTint="@color/google_login_background"
+                                                       app:iconPadding="@dimen/padding_normal"
+                                                       app:icon="@drawable/googleg_standard_color_18"
+                                                       app:layout_constraintTop_toBottomOf="@id/password_container"
+                                                       app:layout_constraintEnd_toStartOf="@id/login_button"
                                                        android:layout_marginTop="@dimen/spacing_large"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
