@@ -2,6 +2,7 @@ package io.codelabs.chatapplication.view
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.transition.TransitionManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import io.codelabs.chatapplication.R
@@ -67,6 +68,38 @@ class ProfileActivity(override val layoutId: Int = R.layout.activity_profile) : 
             intentTo(PreviewActivity::class.java, bundle)
         }
 
+        chat_button.setOnClickListener {
+            toggleChat(true)
+            firestore.document(String.format(USER_CHATS_DOC_REF, database.key, user.key))
+                .set(user)
+                .addOnFailureListener {
+                    toggleChat()
+                }
+        }
+
+        // Check whether the user is already part of your chats
+        checkUserState(user)
+    }
+
+    private fun checkUserState(user: User) {
+        firestore.document(String.format(USER_CHATS_DOC_REF, database.key, user.key))
+            .get()
+            .addOnCompleteListener {
+                toggleChat(it.isSuccessful && it.result != null && it.result!!.exists())
+            }
+    }
+
+    private fun toggleChat(b: Boolean = false) {
+        TransitionManager.beginDelayedTransition(container)
+        if (b) {
+            chat_button.icon = resources.getDrawable(R.drawable.ic_added_chat, null)
+            chat_button.isEnabled = false
+            chat_button.text = getString(R.string.chat_added)
+        } else {
+            chat_button.icon = resources.getDrawable(R.drawable.ic_chat, null)
+            chat_button.isEnabled = true
+            chat_button.text = getString(R.string.add_chat)
+        }
     }
 
     companion object {

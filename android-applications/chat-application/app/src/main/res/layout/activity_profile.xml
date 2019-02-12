@@ -72,7 +72,7 @@
                                                            app:layout_constraintEnd_toEndOf="parent"
                                                            style="@style/ChatAppTheme.Button"
                                                            app:icon="@drawable/ic_chat"
-                                                           android:text="Add to chats"
+                                                           android:text="@string/add_chat"
                                                            android:id="@+id/chat_button"
                                                            app:iconPadding="@dimen/padding_normal"/>
 
