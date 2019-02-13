@@ -11,8 +11,7 @@ private const val DEBUG_KEY_SHA_256 =
     "16:38:DA:45:F9:E5:46:B1:4B:D4:E5:4E:B9:2B:27:2F:0A:B0:1B:18:15:21:65:B4:57:10:B4:67:90:2C:76:D7"
 
 val WEB_CLIENT_ID: String =
-    if (BuildConfig.DEBUG) "686634584869-pq9kvgs0f27l3hl109ss79mn3921r8a7.apps.googleusercontent.com" else "686634584869-jb2rkld5k30gqt17s8pmae1td4ubl27v.apps.googleusercontent.com"
-
+    if (!BuildConfig.DEBUG) "686634584869-pq9kvgs0f27l3hl109ss79mn3921r8a7.apps.googleusercontent.com" else "686634584869-jb2rkld5k30gqt17s8pmae1td4ubl27v.apps.googleusercontent.com"
 
 const val USER_REF = "chat-users"
 const val USER_CHATS_REF = "chat-users/%s/chats"
