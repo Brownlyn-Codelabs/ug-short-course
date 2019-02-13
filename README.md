@@ -20,7 +20,11 @@ https://codelabs.developers.google.com/codelabs/android-room-with-a-view/
 # Intents & Intent Filters
 https://developer.android.com/guide/components/intents-filters/
 
+# Chat Application (Complete project)
+https://play.google.com/store/apps/details?id=io.codelabs.chatapplication
 
+# ToDo Application (Complete project)
+https://play.google.com/store/apps/details?id=io.codelabs.todoapplication
 
 # Firebase 
 https://firebase.google.com/docs/
