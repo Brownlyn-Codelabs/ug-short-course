@@ -9,7 +9,7 @@ import io.codelabs.chatapplication.data.User
 /**
  * [RoomDatabase] implementation
  */
-@Database(entities = [User::class], version = 2, exportSchema = false)
+@Database(entities = [User::class], version = 2, exportSchema = true)
 abstract class ChatAppDatabase : RoomDatabase() {
 
     companion object {

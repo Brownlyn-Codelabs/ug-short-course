@@ -25,6 +25,13 @@ android {
 
         buildConfigField 'String', 'GIT_SHA', "\"${gitSha}\""
         buildConfigField 'String', 'GIT_COMMIT', "\"${gitCommitCount}\""
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -34,6 +41,11 @@ android {
             signingConfig signingConfigs.release_config
         }
     }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
     androidExtensions {
         experimental = true
     }

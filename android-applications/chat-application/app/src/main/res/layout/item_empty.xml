@@ -8,8 +8,8 @@
                android:layout_height="300dp"
                android:id="@+id/empty_view"
                android:layout_gravity="center"
-               android:scaleType="centerCrop"
-               tools:src="@drawable/empty_state" tools:ignore="ContentDescription"/>
+               tools:src="@drawable/empty_state"
+               tools:ignore="ContentDescription"/>
 
 
 
