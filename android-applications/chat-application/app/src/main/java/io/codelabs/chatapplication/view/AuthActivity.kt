@@ -150,20 +150,44 @@ class AuthActivity(override val layoutId: Int = R.layout.activity_auth) : BaseAc
                     )
 
                     // Add user information to the database
-                    firestore.document(String.format(USER_DOC_REF, currentUser.uid))
-                        .set(user)
-                        .addOnCompleteListener {
-                            ioScope.launch {
-                                userViewModel.insert(user)
-                                database.key = currentUser.uid
+                    val document = firestore.document(String.format(USER_DOC_REF, currentUser.uid))
+                    document.get().addOnCompleteListener {
 
-                                uiScope.launch {
-                                    toggleFields()
-                                    toast(message = "Logged in successfully")
-                                    intentTo(HomeActivity::class.java, true)
+                        if (it.isSuccessful) {
+                            val newUser = it.result?.toObject(User::class.java)
+                            if (newUser != null) {
+                                ioScope.launch {
+                                    userViewModel.insert(newUser)
+                                    database.key = currentUser.uid
+
+                                    uiScope.launch {
+                                        toggleFields()
+                                        toast(message = "Logged in successfully")
+                                        intentTo(HomeActivity::class.java, true)
+                                    }
                                 }
+                            } else {
+
+                                // Create new document
+                                document.set(user)
+                                    .addOnCompleteListener {
+                                        ioScope.launch {
+                                            userViewModel.insert(user)
+                                            database.key = currentUser.uid
+
+                                            uiScope.launch {
+                                                toggleFields()
+                                                toast(message = "Logged in successfully")
+                                                intentTo(HomeActivity::class.java, true)
+                                            }
+                                        }
+                                    }
                             }
+                        } else {
+                            toggleFields()
+                            toast(it.exception?.localizedMessage)
                         }
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     debugLog("signInWithCredential:failure")
@@ -171,6 +195,11 @@ class AuthActivity(override val layoutId: Int = R.layout.activity_auth) : BaseAc
                     Snackbar.make(container, "Authentication Failed.", Snackbar.LENGTH_SHORT).show()
                 }
 
+            }.addOnFailureListener {
+                // If sign in fails, display a message to the user.
+                debugLog(it.localizedMessage)
+                toggleFields()
+                Snackbar.make(container, "Authentication Failed. ${it.localizedMessage}", Snackbar.LENGTH_SHORT).show()
             }
     }
 

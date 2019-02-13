@@ -13,7 +13,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
 
-        if (database.isLoggedIn) {
+        if (database.isLoggedIn && !database.key.isNullOrEmpty()) {
             userViewModel.getCurrentUser(database.key!!).observe(this@MainActivity, Observer {
                 uiScope.launch {
                     if (it != null && it.key.isNotEmpty()) {

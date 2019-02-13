@@ -88,10 +88,12 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
         toolbar_title.text = String.format("%s (v%d)", getString(R.string.app_name), BuildConfig.VERSION_CODE)
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
         postLastSeen()
-        super.onDestroy()
+        super.onStop()
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -116,15 +118,21 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
     }
 
     private fun postLastSeen() {
-        if (database.isLoggedIn) {
-            firestore.document(String.format(USER_DOC_REF, database.key))
-                .update(
-                    mapOf<String, Any?>(
-                        "lastSeen" to System.currentTimeMillis()
-                    )
-                ).addOnCompleteListener {
-                    debugLog("Updated user status")
-                }
+        if (database.isLoggedIn && !database.key.isNullOrEmpty()) {
+            try {
+                firestore.document(String.format(USER_DOC_REF, database.key))
+                    .update(
+                        mapOf<String, Any?>(
+                            "lastSeen" to System.currentTimeMillis(),
+                            "online" to false
+                        )
+                    ).addOnCompleteListener {
+                        debugLog("Updated user last seen")
+                    }
+            } catch (e: Exception) {
+                debugLog(e.cause)
+                debugLog(e.localizedMessage)
+            }
         }
     }
 
