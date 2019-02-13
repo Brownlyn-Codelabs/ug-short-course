@@ -1,6 +1,8 @@
 package io.codelabs.chatapplication.view.adapter
 
+import android.text.format.DateUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.codelabs.chatapplication.R
@@ -9,6 +11,7 @@ import io.codelabs.chatapplication.glide.GlideApp
 import io.codelabs.chatapplication.util.BaseActivity
 import io.codelabs.chatapplication.util.toast
 import kotlinx.android.synthetic.main.item_empty.view.*
+import kotlinx.android.synthetic.main.item_message_text.view.*
 
 class MessagesAdapter(private val host: BaseActivity, private val listener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -74,6 +77,31 @@ class MessagesAdapter(private val host: BaseActivity, private val listener: OnIt
             TYPE_MESSAGE_TEXT -> {
                 if (holder is MessageViewHolder) {
                     val message = dataset[position]
+
+                    if (message.key == host.database.key) {
+                        holder.view.sender_message_container.visibility = View.VISIBLE
+                        holder.view.recipient_message_container.visibility = View.GONE
+
+                        // Load sender's details
+                        holder.view.sender_message_text.text = message.name
+                        holder.view.sender_message_timestamp.text = DateUtils.getRelativeTimeSpanString(
+                            message.timestamp,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS
+                        )
+
+                    } else {
+                        holder.view.sender_message_container.visibility = View.VISIBLE
+                        holder.view.recipient_message_container.visibility = View.GONE
+
+                        // Load recipient's details
+                        holder.view.recipient_message_text.text = message.name
+                        holder.view.recipient_message_timestamp.text = DateUtils.getRelativeTimeSpanString(
+                            message.timestamp,
+                            System.currentTimeMillis(),
+                            DateUtils.SECOND_IN_MILLIS
+                        )
+                    }
 
                     holder.view.setOnClickListener {
                         host.toast(message)
