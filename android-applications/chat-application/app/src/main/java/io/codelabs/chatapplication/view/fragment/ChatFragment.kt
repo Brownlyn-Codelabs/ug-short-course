@@ -27,6 +27,7 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
         try {
             rootActivity.firestore.collection(String.format(USER_CHATS_REF, rootActivity.database.key))
                 .orderBy("createdAt", Query.Direction.ASCENDING)
+                .whereEqualTo("blocked", false)
                 .addSnapshotListener(rootActivity) { snapshot, exception ->
                     if (exception != null) {
                         debugLog("Cause: ${exception.cause}")

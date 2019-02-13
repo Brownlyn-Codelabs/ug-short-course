@@ -171,6 +171,12 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
             this,
             if (isFavorite) R.drawable.ic_favorite_linked else R.drawable.ic_favorite_unlinked
         )
+
+        val blockedMenuItem = menu?.findItem(R.id.menu_favorite)
+        blockedMenuItem?.icon = ContextCompat.getDrawable(
+            this,
+            if (isFavorite) R.drawable.ic_remove else R.drawable.ic_unblock
+        )
         return true
     }
 
@@ -178,12 +184,14 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
         when (item?.itemId) {
             R.id.menu_block -> {
                 if (key.isNotEmpty()) {
-                    isBlocked = true
+                    isBlocked = !isBlocked
                     invalidateOptionsMenu()
+
+                    // Update database
                     firestore.document(String.format(USER_CHATS_DOC_REF, database.key, key))
                         .update(
                             mapOf<String, Any?>(
-                                "blocked" to true
+                                "blocked" to isBlocked
                             )
                         )
                 }
