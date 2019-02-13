@@ -17,4 +17,6 @@
     <string name="unblock_chat">UnBlock chat</string>
     <string name="mark_as_favorite">Mark as favorite</string>
     <string name="remove_from_fav">Remove from favorites</string>
+    <string name="profile">My Profile</string>
+    <string name="edit">Edit Profile</string>
 </resources>

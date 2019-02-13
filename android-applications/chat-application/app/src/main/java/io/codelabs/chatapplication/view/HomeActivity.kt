@@ -17,6 +17,7 @@ import io.codelabs.chatapplication.data.User
 import io.codelabs.chatapplication.util.*
 import io.codelabs.chatapplication.view.fragment.BlockedUsersFragment
 import io.codelabs.chatapplication.view.fragment.ChatFragment
+import io.codelabs.chatapplication.view.fragment.ProfileFragment
 import io.codelabs.chatapplication.view.fragment.UserFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.launch
@@ -59,6 +60,7 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
             addFragment(ChatFragment(), res.getString(R.string.chats))
             addFragment(UserFragment(), res.getString(R.string.all_users))
             addFragment(BlockedUsersFragment(), res.getString(R.string.blocked))
+            addFragment(ProfileFragment(), res.getString(R.string.profile))
         }
 
         viewpager.adapter = adapter
