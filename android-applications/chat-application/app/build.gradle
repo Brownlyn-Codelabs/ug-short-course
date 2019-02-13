@@ -97,5 +97,6 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     // Material Dialogs
     implementation 'com.afollestad.material-dialogs:core:2.0.0'
+    implementation 'com.afollestad.material-dialogs:input:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

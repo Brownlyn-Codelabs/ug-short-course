@@ -14,7 +14,6 @@ import io.codelabs.chatapplication.data.User
 import io.codelabs.chatapplication.glide.GlideApp
 import io.codelabs.chatapplication.util.BaseActivity
 import io.codelabs.chatapplication.util.USER_DOC_REF
-import io.codelabs.chatapplication.util.debugLog
 import io.codelabs.chatapplication.util.intentTo
 import io.codelabs.chatapplication.view.PreviewActivity
 import kotlinx.android.synthetic.main.item_chat.view.*
@@ -172,7 +171,6 @@ class UserAdapter constructor(private val host: BaseActivity, private val listen
             }
 
             holder.view.setOnClickListener {
-                debugLog("Before click: $item")
                 listener.onClick(item)
             }
         }
@@ -180,10 +178,8 @@ class UserAdapter constructor(private val host: BaseActivity, private val listen
 
     fun addData(items: MutableList<out BaseDataModel>) {
         dataset.clear()
-        for (item in items) {
-            dataset.add(item)
-            notifyItemRangeChanged(0, items.size)
-        }
+        dataset.addAll(items)
+        notifyDataSetChanged()
     }
 
     interface ItemClickListener {

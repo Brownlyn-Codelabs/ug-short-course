@@ -46,7 +46,6 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
     }
 
     override fun onClick(item: BaseDataModel) {
-        debugLog("After click: $item")
         val bundle = Bundle(0)
         bundle.putParcelable(MessagingActivity.EXTRA_USER, item)
         requireActivity().intentTo(MessagingActivity::class.java, bundle)

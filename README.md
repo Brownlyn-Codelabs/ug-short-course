@@ -18,7 +18,9 @@ https://codelabs.developers.google.com/codelabs/android-persistence/
 https://codelabs.developers.google.com/codelabs/android-room-with-a-view/
 
 # Intents & Intent Filters
-https://developer.android.com/guide/components/intents-filters
+https://developer.android.com/guide/components/intents-filters/
+
+
 
 # Firebase 
 https://firebase.google.com/docs/
