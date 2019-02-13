@@ -147,10 +147,6 @@ class UserAdapter constructor(private val host: BaseActivity, private val listen
                 bundle.putString(PreviewActivity.EXTRA_URL, item.profile)
                 host.intentTo(PreviewActivity::class.java, bundle)
             }
-
-            holder.view.setOnClickListener {
-                listener.onClick(item)
-            }
         } else {
             assert(item is Chat)
             // Load profile image

@@ -3,6 +3,8 @@ package io.codelabs.chatapplication.view
 import android.animation.AnimatorInflater
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -11,9 +13,7 @@ import com.google.android.material.appbar.AppBarLayout
 import io.codelabs.chatapplication.BuildConfig
 import io.codelabs.chatapplication.R
 import io.codelabs.chatapplication.data.User
-import io.codelabs.chatapplication.util.BaseActivity
-import io.codelabs.chatapplication.util.USER_DOC_REF
-import io.codelabs.chatapplication.util.debugLog
+import io.codelabs.chatapplication.util.*
 import io.codelabs.chatapplication.view.fragment.BlockedUsersFragment
 import io.codelabs.chatapplication.view.fragment.ChatFragment
 import io.codelabs.chatapplication.view.fragment.UserFragment
@@ -24,6 +24,10 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
     private lateinit var user: User
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
+        setSupportActionBar(toolbar)
+        toolbar.title = getString(R.string.empty_text)
+
+
         // Observe user instance
         userViewModel.getCurrentUser(database.key!!).observeForever {
             uiScope.launch {
@@ -83,6 +87,27 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
     override fun onDestroy() {
         postLastSeen()
         super.onDestroy()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_signout -> {
+                auth.signOut()
+                ioScope.launch {
+                    userViewModel.delete(user)
+                    uiScope.launch {
+                        toast("We hope to see you soon @${user.name}")
+                        intentTo(MainActivity::class.java, true)
+                    }
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun postLastSeen() {
