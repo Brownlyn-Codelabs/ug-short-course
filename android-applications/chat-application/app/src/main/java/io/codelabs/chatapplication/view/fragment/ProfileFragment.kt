@@ -37,7 +37,7 @@ class ProfileFragment : BaseFragment() {
             }
 
         fab_edit.setOnClickListener {
-            
+
         }
     }
 }
