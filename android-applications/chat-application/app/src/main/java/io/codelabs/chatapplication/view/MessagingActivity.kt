@@ -172,10 +172,10 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
             if (isFavorite) R.drawable.ic_favorite_linked else R.drawable.ic_favorite_unlinked
         )
 
-        val blockedMenuItem = menu?.findItem(R.id.menu_favorite)
+        val blockedMenuItem = menu?.findItem(R.id.menu_block)
         blockedMenuItem?.icon = ContextCompat.getDrawable(
             this,
-            if (isFavorite) R.drawable.ic_remove else R.drawable.ic_unblock
+            if (isBlocked) R.drawable.ic_remove else R.drawable.ic_unblock
         )
         return true
     }

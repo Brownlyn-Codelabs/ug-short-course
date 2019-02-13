@@ -48,4 +48,12 @@
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/nunito_sans_semibold</item>
     </style>
+
+    <style name="ChatAppTheme.Dialog" parent="Theme.MaterialComponents">
+        <item name="md_font_title">@font/nunito_sans_bold</item>
+        <item name="md_font_body">@font/nunito_sans_semibold</item>
+        <item name="md_font_button">@font/nunito_sans_semibold</item>
+
+    </style>
+
 </resources>

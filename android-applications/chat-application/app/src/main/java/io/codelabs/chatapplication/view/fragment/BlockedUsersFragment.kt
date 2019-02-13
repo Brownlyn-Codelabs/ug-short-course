@@ -3,14 +3,12 @@ package io.codelabs.chatapplication.view.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.firebase.firestore.Query
 import io.codelabs.chatapplication.R
 import io.codelabs.chatapplication.data.BaseDataModel
 import io.codelabs.chatapplication.data.Chat
-import io.codelabs.chatapplication.util.BaseActivity
-import io.codelabs.chatapplication.util.BaseFragment
-import io.codelabs.chatapplication.util.USER_CHATS_REF
-import io.codelabs.chatapplication.util.debugLog
+import io.codelabs.chatapplication.util.*
 import io.codelabs.chatapplication.view.adapter.UserAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -45,7 +43,21 @@ class BlockedUsersFragment : BaseFragment(), UserAdapter.ItemClickListener {
     }
 
     override fun onClick(item: BaseDataModel) {
-        //todo: unblock user
-
+        MaterialDialog(requireActivity()).show {
+            title(text = "Select an option...")
+            message(text = "Do you wish to unblock this chat?")
+            positiveButton(text = "Yes") { dialog ->
+                dialog.dismiss()
+                val baseActivity = requireActivity() as BaseActivity
+                baseActivity.toast("Chat unblocked")
+                baseActivity.firestore.document(String.format(USER_CHATS_DOC_REF, baseActivity.database.key, item.key))
+                    .update(
+                        mapOf<String, Any?>(
+                            "blocked" to false
+                        )
+                    )
+            }
+            negativeButton(text = "Cancel") { dialog -> dialog.dismiss() }
+        }
     }
 }
