@@ -3,9 +3,10 @@ package io.codelabs.chatapplication.view.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.Query
 import io.codelabs.chatapplication.R
 import io.codelabs.chatapplication.data.BaseDataModel
-import io.codelabs.chatapplication.data.User
+import io.codelabs.chatapplication.data.Chat
 import io.codelabs.chatapplication.util.*
 import io.codelabs.chatapplication.view.MessagingActivity
 import io.codelabs.chatapplication.view.adapter.UserAdapter
@@ -25,6 +26,7 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
 
         try {
             rootActivity.firestore.collection(String.format(USER_CHATS_REF, rootActivity.database.key))
+                .orderBy("createdAt", Query.Direction.ASCENDING)
                 .addSnapshotListener(rootActivity) { snapshot, exception ->
                     if (exception != null) {
                         debugLog("Cause: ${exception.cause}")
@@ -32,7 +34,7 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
                         return@addSnapshotListener
                     }
 
-                    val users = snapshot?.toObjects(User::class.java)
+                    val users = snapshot?.toObjects(Chat::class.java)
                     if (users != null) adapter.addData(users.toMutableList())
 
                 }

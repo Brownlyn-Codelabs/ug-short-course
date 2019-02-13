@@ -24,17 +24,19 @@ class UserFragment : BaseFragment(), UserAdapter.ItemClickListener {
         grid.setHasFixedSize(true)
 
         try {
-            rootActivity.firestore.collection(USER_REF).addSnapshotListener(rootActivity) { snapshot, exception ->
-                if (exception != null) {
-                    debugLog("Cause: ${exception.cause}")
-                    debugLog(exception.localizedMessage)
-                    return@addSnapshotListener
+            rootActivity.firestore.collection(USER_REF)
+                .addSnapshotListener(rootActivity) { snapshot, exception ->
+                    if (exception != null) {
+                        debugLog("Cause: ${exception.cause}")
+                        debugLog(exception.localizedMessage)
+                        return@addSnapshotListener
+                    }
+
+                    val users = snapshot?.toObjects(User::class.java)
+                    val filter = users?.filter { it.key != rootActivity.database.key }
+                    if (users != null) adapter.addData(filter!!.toMutableList())
+
                 }
-
-                val users = snapshot?.toObjects(User::class.java)
-                if (users != null) adapter.addData(users.toMutableList())
-
-            }
         } catch (e: Exception) {
             debugLog(e.cause)
         }

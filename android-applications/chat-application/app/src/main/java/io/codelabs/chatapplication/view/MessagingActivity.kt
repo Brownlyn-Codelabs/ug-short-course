@@ -2,14 +2,13 @@ package io.codelabs.chatapplication.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import io.codelabs.chatapplication.R
+import io.codelabs.chatapplication.data.Chat
 import io.codelabs.chatapplication.data.Message
-import io.codelabs.chatapplication.data.User
 import io.codelabs.chatapplication.glide.GlideApp
 import io.codelabs.chatapplication.util.*
 import io.codelabs.chatapplication.view.adapter.MessagesAdapter
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_messaging.*
 class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging) : BaseActivity(),
     MessagesAdapter.OnItemClickListener {
 
+    private var isText: Boolean = true
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
         //setSupportActionBar(toolbar)
@@ -32,7 +32,7 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
 
     private fun loadUserById(id: String?) {
         if (id.isNullOrEmpty()) return
-        firestore.document(String.format(USER_DOC_REF, id))
+        firestore.document(String.format(USER_CHATS_DOC_REF, database.key, id))
             .addSnapshotListener(this@MessagingActivity) { snapshot, exception ->
                 if (exception != null) {
                     debugLog(exception.localizedMessage)
@@ -41,13 +41,13 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                 }
 
                 // Get user from snapshot and bind the data to the UI
-                val user = snapshot?.toObject(User::class.java)
+                val user = snapshot?.toObject(Chat::class.java)
                 bindUser(user)
             }
     }
 
 
-    private fun bindUser(user: User?) {
+    private fun bindUser(user: Chat?) {
         if (user == null) {
             toast("Cannot load user's profile")
             return
@@ -60,7 +60,7 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
 
         GlideApp.with(this)
             .asBitmap()
-            .load(user.profile)
+            .load(user.avatar)
             .circleCrop()
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .placeholder(R.drawable.avatar_placeholder)
@@ -70,7 +70,7 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
 
         avatar.setOnClickListener {
             val bundle = Bundle(0)
-            bundle.putString(PreviewActivity.EXTRA_URL, user.profile)
+            bundle.putString(PreviewActivity.EXTRA_URL, user.avatar)
             intentTo(PreviewActivity::class.java, bundle)
         }
 
@@ -98,11 +98,27 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                 if (messages != null) adapter.addData(messages.toMutableList())
 
             }
+
+
+        send_message_button.setOnClickListener {
+            val message = message_view.text.toString()
+            if (message.isEmpty()) {
+                toast("Cannot send empty message")
+                return@setOnClickListener
+            }
+
+            val document = firestore.collection(String.format(USER_MESSAGES_DOC_REF, database.key, key)).document()
+            //todo: check for various supported message types
+            val msgData = Message(document.id, message, type = if (isText) Message.TYPE_TEXT else Message.TYPE_IMAGE)
+            document.set(msgData).addOnCompleteListener { }.addOnFailureListener { }
+            if (message_view.text.toString().isNotEmpty()) message_view.text?.clear()
+        }
+
+        add_file_button.setOnClickListener {
+            //todo: pick file
+        }
     }
 
-    fun sendMessage(v: View?) {}
-
-    fun addFile(v: View?) {}
 
     override fun onClick(item: Message) {
 

@@ -3,6 +3,7 @@ package io.codelabs.chatapplication.data
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.parcel.Parcelize
 
 
@@ -18,7 +19,8 @@ data class User(
     var profile: String? = null,
     var timestamp: Long = System.currentTimeMillis(),
     var lastSeen: Long = System.currentTimeMillis(),
-    var status: String = ""
+    var status: String = "",
+    var token: String = FirebaseInstanceId.getInstance().token ?: ""
 ) : BaseDataModel {
 
     @Ignore

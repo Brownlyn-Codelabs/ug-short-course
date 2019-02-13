@@ -83,9 +83,11 @@
 
             <com.google.android.material.textfield.TextInputEditText android:layout_width="0dp"
                                                                      android:id="@+id/message_view"
+                                                                     app:layout_constraintTop_toTopOf="parent"
                                                                      app:layout_constraintStart_toEndOf="@id/add_file_button"
                                                                      app:layout_constraintEnd_toStartOf="@id/send_message_button"
                                                                      android:layout_height="wrap_content"
+                                                                     android:inputType="textMultiLine|textCapSentences|textAutoCorrect|textAutoComplete"
                                                                      app:layout_constraintBottom_toBottomOf="parent"
                                                                      android:hint="@string/message_hint"/>
 

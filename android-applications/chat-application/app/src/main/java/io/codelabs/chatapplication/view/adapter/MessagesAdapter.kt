@@ -22,8 +22,8 @@ class MessagesAdapter(private val host: BaseActivity, private val listener: OnIt
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            dataset[position].type == Message.TYPE_TEXT -> TYPE_MESSAGE_TEXT
             dataset.isEmpty() -> TYPE_EMPTY
+            dataset.isNotEmpty() && dataset[position].type == Message.TYPE_TEXT -> TYPE_MESSAGE_TEXT
             else -> TYPE_MESSAGE_OTHER
         }
     }
@@ -53,10 +53,6 @@ class MessagesAdapter(private val host: BaseActivity, private val listener: OnIt
         when (getItemViewType(position)) {
             TYPE_EMPTY -> {
                 if (holder is EmptyViewHolder) {
-                    holder.view.setBackgroundColor(
-                        host.resources.getColor(R.color.content_placeholder)
-                    )
-
                     GlideApp.with(host)
                         .asBitmap()
                         .load(R.drawable.empty_chat)

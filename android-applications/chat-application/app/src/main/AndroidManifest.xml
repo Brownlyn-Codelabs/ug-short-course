@@ -34,6 +34,7 @@
                   android:theme="@style/ChatAppTheme.Home.Preview"/>
         <activity android:name=".view.MessagingActivity"
                   android:theme="@style/ChatAppTheme.Home"/>
+        <activity android:name=".view.ShareActivity"/>
     </application>
 
 </manifest>

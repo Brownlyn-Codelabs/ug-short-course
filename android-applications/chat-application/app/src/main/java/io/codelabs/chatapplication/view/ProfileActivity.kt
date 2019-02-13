@@ -6,6 +6,7 @@ import androidx.transition.TransitionManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import io.codelabs.chatapplication.R
+import io.codelabs.chatapplication.data.Chat
 import io.codelabs.chatapplication.data.User
 import io.codelabs.chatapplication.glide.GlideApp
 import io.codelabs.chatapplication.util.*
@@ -71,7 +72,7 @@ class ProfileActivity(override val layoutId: Int = R.layout.activity_profile) : 
         chat_button.setOnClickListener {
             toggleChat(true)
             firestore.document(String.format(USER_CHATS_DOC_REF, database.key, user.key))
-                .set(user)
+                .set(Chat(user.key, user.name, System.currentTimeMillis(), user.profile))
                 .addOnFailureListener {
                     toggleChat()
                 }

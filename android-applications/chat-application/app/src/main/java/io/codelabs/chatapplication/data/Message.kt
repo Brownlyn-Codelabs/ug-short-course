@@ -13,6 +13,8 @@ data class Message(
     var type: String = Message.TYPE_TEXT
 ) : BaseDataModel {
 
+    constructor() : this("", "")
+
     companion object {
         const val TYPE_AUDIO = "audio"
         const val TYPE_IMAGE = "image"
