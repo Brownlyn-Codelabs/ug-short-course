@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Block chat"
+    <item android:title="@string/block_chat"
           android:id="@+id/menu_block"
           android:icon="@drawable/ic_remove"
           app:showAsAction="ifRoom"/>
 
-    <item android:title="Mark as favorite"
+    <item android:title="@string/mark_as_favorite"
           android:id="@+id/menu_favorite"
           android:icon="@drawable/ic_favorite_unlinked"
           app:showAsAction="ifRoom"/>

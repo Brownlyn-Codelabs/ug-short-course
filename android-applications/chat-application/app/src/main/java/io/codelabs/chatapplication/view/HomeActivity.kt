@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.appbar.AppBarLayout
 import io.codelabs.chatapplication.BuildConfig
@@ -27,14 +28,15 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
         setSupportActionBar(toolbar)
         toolbar.title = getString(R.string.empty_text)
 
-
         // Observe user instance
-        userViewModel.getCurrentUser(database.key!!).observeForever {
+        userViewModel.getCurrentUser(database.key!!).observe(this@HomeActivity, Observer {
             uiScope.launch {
-                user = it
-                bindUser()
+                if (it != null && it.key.isNotEmpty()) {
+                    user = it
+                    bindUser()
+                }
             }
-        }
+        })
 
         // Setup View pager
         setupViewPager(viewpager)
@@ -100,6 +102,7 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
                 auth.signOut()
                 ioScope.launch {
                     userViewModel.delete(user)
+                    database.key = ""
                     uiScope.launch {
                         toast("We hope to see you soon @${user.name}")
                         intentTo(MainActivity::class.java, true)
@@ -111,14 +114,16 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : BaseAc
     }
 
     private fun postLastSeen() {
-        firestore.document(String.format(USER_DOC_REF, database.key))
-            .update(
-                mapOf<String, Any?>(
-                    "lastSeen" to System.currentTimeMillis()
-                )
-            ).addOnCompleteListener {
-                debugLog("Updated user status")
-            }
+        if (database.isLoggedIn) {
+            firestore.document(String.format(USER_DOC_REF, database.key))
+                .update(
+                    mapOf<String, Any?>(
+                        "lastSeen" to System.currentTimeMillis()
+                    )
+                ).addOnCompleteListener {
+                    debugLog("Updated user status")
+                }
+        }
     }
 
 }

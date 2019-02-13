@@ -27,6 +27,7 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
         try {
             rootActivity.firestore.collection(String.format(USER_CHATS_REF, rootActivity.database.key))
                 .orderBy("createdAt", Query.Direction.ASCENDING)
+                .orderBy("favorite", Query.Direction.ASCENDING)
                 .whereEqualTo("blocked", false)
                 .addSnapshotListener(rootActivity) { snapshot, exception ->
                     if (exception != null) {
@@ -45,6 +46,7 @@ class ChatFragment : BaseFragment(), UserAdapter.ItemClickListener {
     }
 
     override fun onClick(item: BaseDataModel) {
+        debugLog("After click: $item")
         val bundle = Bundle(0)
         bundle.putParcelable(MessagingActivity.EXTRA_USER, item)
         requireActivity().intentTo(MessagingActivity::class.java, bundle)

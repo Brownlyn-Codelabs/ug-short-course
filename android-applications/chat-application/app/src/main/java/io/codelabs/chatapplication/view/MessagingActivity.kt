@@ -53,9 +53,9 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                 // Get user from snapshot and bind the data to the UI
                 val user = snapshot?.toObject(Chat::class.java)
                 bindUser(user)
+                invalidateOptionsMenu()
             }
     }
-
 
     private fun bindUser(user: BaseDataModel?) {
         if (user == null) {
@@ -145,10 +145,16 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                 return@setOnClickListener
             }
 
-            val document = firestore.collection(String.format(USER_MESSAGES_DOC_REF, database.key, key)).document()
+            val documentSender =
+                firestore.collection(String.format(USER_MESSAGES_DOC_REF, database.key, key)).document()
+            val documentRec = firestore.collection(String.format(USER_MESSAGES_DOC_REF, key, database.key))
+                .document(documentSender.id)
             //todo: check for various supported message types
-            val msgData = Message(document.id, message, type = if (isText) Message.TYPE_TEXT else Message.TYPE_IMAGE)
-            document.set(msgData).addOnCompleteListener { }.addOnFailureListener { }
+            val msgData =
+                Message(documentSender.id, message, type = if (isText) Message.TYPE_TEXT else Message.TYPE_IMAGE)
+
+            documentSender.set(msgData).addOnCompleteListener { }.addOnFailureListener { }
+            documentRec.set(msgData).addOnCompleteListener { }.addOnFailureListener { }
             if (message_view.text.toString().isNotEmpty()) message_view.text?.clear()
             if (adapter.isNotEmpty()) {
                 message_grid.smoothScrollToPosition(adapter.bottom)
@@ -166,17 +172,28 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val intent = intent
+        if (intent.hasExtra(EXTRA_USER)) {
+            val dataModel = intent.getParcelableExtra<BaseDataModel>(EXTRA_USER)
+            if (dataModel is Chat) {
+                isFavorite = dataModel.favorite
+                isBlocked = dataModel.blocked
+            }
+        }
+
         val favMenuItem = menu?.findItem(R.id.menu_favorite)
         favMenuItem?.icon = ContextCompat.getDrawable(
             this,
             if (isFavorite) R.drawable.ic_favorite_linked else R.drawable.ic_favorite_unlinked
         )
+        favMenuItem?.title = getString(if (isFavorite) R.string.remove_from_fav else R.string.mark_as_favorite)
 
         val blockedMenuItem = menu?.findItem(R.id.menu_block)
         blockedMenuItem?.icon = ContextCompat.getDrawable(
             this,
-            if (isBlocked) R.drawable.ic_remove else R.drawable.ic_unblock
+            if (isBlocked) R.drawable.ic_unblock else R.drawable.ic_remove
         )
+        blockedMenuItem?.title = getString(if (isBlocked) R.string.unblock_chat else R.string.block_chat)
         return true
     }
 
@@ -201,14 +218,19 @@ class MessagingActivity(override val layoutId: Int = R.layout.activity_messaging
                 isFavorite = !isFavorite
                 invalidateOptionsMenu()
 
-                //todo: add to favorites
+                // Update database
+                firestore.document(String.format(USER_CHATS_DOC_REF, database.key, key))
+                    .update(
+                        mapOf<String, Any?>(
+                            "favorite" to isFavorite
+                        )
+                    )
             }
 
 
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onClick(item: Message) {
         when (item.type) {

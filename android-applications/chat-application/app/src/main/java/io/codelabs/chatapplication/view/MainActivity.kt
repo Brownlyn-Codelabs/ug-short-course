@@ -16,9 +16,11 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : BaseAc
         if (database.isLoggedIn) {
             userViewModel.getCurrentUser(database.key!!).observe(this@MainActivity, Observer {
                 uiScope.launch {
-                    get_started.text = String.format("Continue as %s", it.name)
-                    get_started.setOnClickListener {
-                        intentTo(HomeActivity::class.java, true)
+                    if (it != null && it.key.isNotEmpty()) {
+                        get_started.text = String.format("Continue as %s", it.name)
+                        get_started.setOnClickListener {
+                            intentTo(HomeActivity::class.java, true)
+                        }
                     }
                 }
             })

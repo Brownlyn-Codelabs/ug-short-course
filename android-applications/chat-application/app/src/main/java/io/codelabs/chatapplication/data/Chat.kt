@@ -10,7 +10,8 @@ data class Chat(
     override var name: String,
     var createdAt: Long,
     var avatar: String? = "",
-    var blocked: Boolean = false
+    var blocked: Boolean = false,
+    var favorite: Boolean = false
 ) : BaseDataModel {
 
     constructor() : this("", "", System.currentTimeMillis())
