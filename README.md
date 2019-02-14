@@ -20,6 +20,9 @@ https://codelabs.developers.google.com/codelabs/android-room-with-a-view/
 # Intents & Intent Filters
 https://developer.android.com/guide/components/intents-filters/
 
+# Bounded & Unbounded services
+https://stackoverflow.com/questions/25240299/can-anybody-explain-what-is-difference-between-unbound-and-bound-service-in-andr
+
 # Chat Application (Complete project)
 https://play.google.com/store/apps/details?id=io.codelabs.chatapplication
 
