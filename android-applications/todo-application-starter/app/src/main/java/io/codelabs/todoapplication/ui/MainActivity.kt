@@ -2,6 +2,7 @@ package io.codelabs.todoapplication.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import io.codelabs.todoapplication.R
 
 class MainActivity : AppCompatActivity() {
@@ -12,4 +13,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun addNewTodo(v: View?) {
+
+    }
+
+
 }

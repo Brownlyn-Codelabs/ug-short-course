@@ -19,7 +19,7 @@ interface TodoAppDao {
     /**
      * Get a list of all [TodoItem]s
      */
-    @Query("SELECT * FROM todos ORDER BY timestamp ASC")
+    @Query("SELECT * FROM todos ORDER BY timestamp DESC")
     fun getAllItems(): LiveData<MutableList<TodoItem>>
 
     /**
