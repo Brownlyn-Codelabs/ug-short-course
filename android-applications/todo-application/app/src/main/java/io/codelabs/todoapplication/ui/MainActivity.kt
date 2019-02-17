@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import io.codelabs.todoapplication.R
 import io.codelabs.todoapplication.core.TodoApplication
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), TodoTaskAdapter.ClickListener {
 
 
     private val job = Job()
+    private val ioScope = CoroutineScope(Dispatchers.IO + job)
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +92,13 @@ class MainActivity : AppCompatActivity(), TodoTaskAdapter.ClickListener {
             val make = Snackbar.make(container, "Clear this item completely?", Snackbar.LENGTH_LONG)
             make.setAction("Delete") {
                 make.dismiss()
-                viewModel.delete(item)
+                ioScope.launch {
+                    viewModel.delete(item)
+                    uiScope.launch {
+                        make.setText("Item deleted successfully")
+                        make.setDuration(BaseTransientBottomBar.LENGTH_SHORT).show()
+                    }
+                }
             }.show()
         } else {
             // Create intent object
