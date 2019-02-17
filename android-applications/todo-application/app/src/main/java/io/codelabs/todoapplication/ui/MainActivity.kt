@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.todoapplication.R
 import io.codelabs.todoapplication.core.TodoApplication
 import io.codelabs.todoapplication.data.TodoItem
@@ -23,7 +24,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), TodoTaskAdapter.ClickListener {
+    private lateinit var viewModel: TodoTaskViewModel
+
+
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
@@ -37,11 +41,11 @@ class MainActivity : AppCompatActivity() {
         grid_todos.layoutManager = layoutManager
         grid_todos.setHasFixedSize(true)
         grid_todos.itemAnimator = DefaultItemAnimator()
-        val adapter = TodoTaskAdapter(this)
+        val adapter = TodoTaskAdapter(this, this)
         grid_todos.adapter = adapter
 
         // Create view model instance
-        val viewModel: TodoTaskViewModel = ViewModelProviders.of(this, TodoTaskFactory(application as TodoApplication))
+        viewModel = ViewModelProviders.of(this, TodoTaskFactory(application as TodoApplication))
             .get(TodoTaskViewModel::class.java)
 
         uiScope.launch {
@@ -79,5 +83,24 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onClick(item: TodoItem) {
+        if (item.completed) {
+            val make = Snackbar.make(container, "Clear this item completely?", Snackbar.LENGTH_LONG)
+            make.setAction("Delete") {
+                make.dismiss()
+                viewModel.delete(item)
+            }.show()
+        } else {
+            // Create intent object
+            val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+
+            // Add data to intent
+            intent.putExtra(/*key*/DetailsActivity.EXTRA_ITEM,/*value*/item)
+
+            // Start activity with intent object
+            startActivity(intent)
+        }
     }
 }

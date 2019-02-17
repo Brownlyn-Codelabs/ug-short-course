@@ -6,6 +6,7 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.todoapplication.R
 import io.codelabs.todoapplication.data.TodoItem
 import io.codelabs.todoapplication.ui.DetailsActivity
@@ -15,7 +16,8 @@ import kotlinx.android.synthetic.main.item_todo_completed.view.*
 /**
  * This populates the recyclerview with items from the todoList
  */
-class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TodoTaskAdapter constructor(private val ctx: Context,
+                                  private val listener: TodoTaskAdapter.ClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val TYPE_EMPTY = 0
         private const val TYPE_ITEMS = 1
@@ -64,6 +66,10 @@ class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapt
                         System.currentTimeMillis(),
                         DateUtils.SECOND_IN_MILLIS
                     )
+
+                    holder.view.setOnClickListener {
+                        listener.onClick(todoItem)
+                    }
                 }
             }
 
@@ -80,14 +86,7 @@ class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapt
 
                     // Pass data between activities
                     holder.view.setOnClickListener {
-                        // Create intent object
-                        val intent = Intent(ctx, DetailsActivity::class.java)
-
-                        // Add data to intent
-                        intent.putExtra(/*key*/DetailsActivity.EXTRA_ITEM,/*value*/todoItem)
-
-                        // Start activity with intent object
-                        ctx.startActivity(intent)
+                        listener.onClick(todoItem)
                     }
                 }
             }
@@ -108,4 +107,8 @@ class TodoTaskAdapter constructor(private val ctx: Context) : RecyclerView.Adapt
     }
 
     private fun clear() = dataset.clear()
+
+    interface ClickListener {
+        fun onClick(item: TodoItem)
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import io.codelabs.todoapplication.R
 import io.codelabs.todoapplication.core.TodoApplication
 import io.codelabs.todoapplication.data.TodoItem
@@ -56,7 +57,8 @@ class CreateTodoActivity : AppCompatActivity() {
                 // Update UI with callback
                 uiScope.launch {
                     todo_input.text?.clear()
-                    this@CreateTodoActivity.toast(message = "Item added successfully")
+                    todo_input.clearFocus()
+                    Snackbar.make(container,"Item added successfully",Snackbar.LENGTH_LONG).show()
                 }
             }
         }
