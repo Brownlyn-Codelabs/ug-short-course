@@ -14,19 +14,13 @@ abstract class ChatAppDatabase : RoomDatabase() {
 
     companion object {
         private val lock = Any()
+        @Volatile
         private var instance: ChatAppDatabase? = null
 
-        fun getInstance(context: Context): ChatAppDatabase {
-            if (instance == null) {
-                synchronized(lock) {
-                    instance = Room.databaseBuilder(
-                        context,
-                        ChatAppDatabase::class.java,
-                        "chatapp.db"
-                    )/*.allowMainThreadQueries()*/.fallbackToDestructiveMigration().build()
-                }
-            }
-            return instance!!
+        fun getInstance(context: Context): ChatAppDatabase = instance ?: synchronized(lock) {
+            instance ?: Room.databaseBuilder(context, ChatAppDatabase::class.java, "chatapp.db")
+                .fallbackToDestructiveMigration()
+                .build().also { instance = it }
         }
     }
 
