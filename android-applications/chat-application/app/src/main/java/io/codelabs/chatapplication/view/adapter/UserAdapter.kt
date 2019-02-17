@@ -106,8 +106,8 @@ class UserAdapter constructor(private val host: BaseActivity, private val listen
 
             else -> {
                 GlideApp.with(host)
-                    .asGif()
-                    .load(R.drawable.empty_state)
+                    .asDrawable()
+                    .load(R.drawable.empty_content)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into((holder as EmptyViewHolder).view.empty_view)
             }
