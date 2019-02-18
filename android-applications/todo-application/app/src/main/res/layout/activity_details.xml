@@ -13,6 +13,7 @@
                                        app:layout_constraintTop_toTopOf="parent"
                                        app:navigationIcon="@drawable/ic_close"
                                        android:id="@+id/toolbar"
+                                       app:title="@string/empty_text"
                                        android:elevation="0dp">
 
         <!--Customized TextView-->

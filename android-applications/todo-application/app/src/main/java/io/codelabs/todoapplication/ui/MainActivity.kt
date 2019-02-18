@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), TodoTaskAdapter.ClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setSupportActionBar(toolbar)
         toolbar.title = getString(R.string.empty_text)
 
         val layoutManager = LinearLayoutManager(this)
