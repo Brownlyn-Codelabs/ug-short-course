@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="io.codelabs.todoapplication">
-
-    <!--Adding permissions here: In the event where we need to backup the data to a remote server in the future-->
+          xmlns:tools="http://schemas.android.com/tools"
+          package="io.codelabs.todoapplication">
+    <!-- Adding permissions here: In the event where we need to backup the data to a remote server in the future -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -14,8 +14,10 @@
             android:supportsRtl="true"
             android:theme="@style/TodoAppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-
-        <!--Main Activity-->
+        <activity android:name=".ui.DetailsActivity">
+        </activity>
+        <activity android:name=".ui.CreateTodoActivity">
+        </activity> <!-- Main Activity -->
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,8 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>
