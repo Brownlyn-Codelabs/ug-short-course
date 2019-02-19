@@ -7,4 +7,15 @@
         android:layout_height="match_parent"
         tools:context=".ui.CreateTodoActivity">
 
+    <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
+                                       app:layout_constraintTop_toTopOf="parent"
+                                       android:layout_height="?attr/actionBarSize">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Create Todo item"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
