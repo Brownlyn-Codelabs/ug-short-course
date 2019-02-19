@@ -32,7 +32,12 @@ fun Context.createAlarm(message: String, hour: Int, minutes: Int) {
     }
 }
 
-fun Context.addEvent(title: String, location: String, begin: Long, end: Long) {
+fun Context.addEvent(
+    title: String,
+    location: String,
+    begin: Long = System.currentTimeMillis(),
+    end: Long = System.currentTimeMillis().plus(7200000)
+) {
     val intent = Intent(Intent.ACTION_INSERT).apply {
         data = CalendarContract.Events.CONTENT_URI
         putExtra(CalendarContract.Events.TITLE, title)
