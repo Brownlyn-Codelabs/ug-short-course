@@ -13,12 +13,11 @@ import io.codelabs.todoapplication.data.TodoItem
 abstract class TodoAppDatabase : RoomDatabase() {
 
     companion object {
-        private val lock = Any()
         private var instance: TodoAppDatabase? = null
 
         fun getInstance(context: Context): TodoAppDatabase {
             if (instance == null) {
-                synchronized(lock) {
+                synchronized(this) {
                     instance = Room.databaseBuilder(
                         context,
                         TodoAppDatabase::class.java,
