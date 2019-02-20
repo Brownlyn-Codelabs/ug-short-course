@@ -46,3 +46,6 @@ https://github.com/chrisbanes/PhotoView
 
 # Android Codelabs
 https://codelabs.developers.google.com/
+
+# Shoe Application Using Kotlin
+https://drive.google.com/file/d/1mEFy76JS9_H6mluK5iqvB5ye72FYHoud/view?usp=sharing
