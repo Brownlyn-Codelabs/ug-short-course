@@ -11,7 +11,7 @@ data class TodoItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     var content: String,
-    var timestamp: Long = System.currentTimeMillis(),
+    val timestamp: Long = System.currentTimeMillis(),
     var completed: Boolean = false
 ) : BaseDataModel {
 
