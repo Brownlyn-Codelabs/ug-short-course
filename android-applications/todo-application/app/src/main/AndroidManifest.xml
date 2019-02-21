@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="io.codelabs.todoapplication">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="io.codelabs.todoapplication"
+          android:installLocation="auto">
 
     <!--Adding permissions here: In the vent where we need to backup the data to a remote server in the future-->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -23,8 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".ui.CreateTodoActivity"
-                  android:label="@string/empty_text"/>
+        android:label="@string/empty_text"/>
         <activity android:name=".ui.DetailsActivity"
                   android:label="@string/empty_text"/>
     </application>
