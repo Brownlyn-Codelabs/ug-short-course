@@ -36,7 +36,6 @@ class DetailsActivity : AppCompatActivity() {
 
         // Toolbar setup
         setSupportActionBar(toolbar)
-        toolbar.title = getString(R.string.empty_text)
         toolbar.setNavigationOnClickListener { finishAfterTransition() }
 
         // Init view model

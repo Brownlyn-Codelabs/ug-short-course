@@ -5,7 +5,7 @@
     <!--Adding permissions here: In the vent where we need to backup the data to a remote server in the future-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
             android:name=".core.TodoApplication"
@@ -23,8 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.CreateTodoActivity"/>
-        <activity android:name=".ui.DetailsActivity"/>
+        <activity android:name=".ui.CreateTodoActivity"
+                  android:label="@string/empty_text"/>
+        <activity android:name=".ui.DetailsActivity"
+                  android:label="@string/empty_text"/>
     </application>
 
 </manifest>
