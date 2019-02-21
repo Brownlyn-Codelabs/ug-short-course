@@ -18,11 +18,11 @@ abstract class TodoAppDatabase : RoomDatabase() {
         fun getInstance(context: Context): TodoAppDatabase {
             if (instance == null) {
                 synchronized(this) {
-                    instance = Room.databaseBuilder(
+                    instance ?: Room.databaseBuilder(
                         context,
                         TodoAppDatabase::class.java,
                         "todoapp.db"
-                    )/*.allowMainThreadQueries()*/.fallbackToDestructiveMigration().build()
+                    ).build().also { instance = it }
                 }
             }
             return instance!!

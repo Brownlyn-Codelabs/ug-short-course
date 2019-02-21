@@ -2,10 +2,11 @@ package io.codelabs.todoapplication.room.repository
 
 import io.codelabs.todoapplication.core.TodoApplication
 import io.codelabs.todoapplication.data.TodoItem
+import io.codelabs.todoapplication.room.TodoAppDao
 import io.codelabs.todoapplication.room.TodoAppDatabase
 
 class TodoTaskRepository constructor(application: TodoApplication) {
-    private var dao = TodoAppDatabase.getInstance(application.applicationContext).dao()
+    private var dao: TodoAppDao = TodoAppDatabase.getInstance(application.applicationContext).dao()
 
     fun insert(todoItem: TodoItem) = /*ioScope.launch { dao.createTodoItem(todoItem) }*/ dao.createTodoItem(todoItem)
 
