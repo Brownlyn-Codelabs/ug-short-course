@@ -41,9 +41,7 @@ interface TodoAppDao {
      *              // Do something with the live Data result obtained from
      *              // the query
      *          })
-     *
      *      }
-     *
      * }
      *
      */
