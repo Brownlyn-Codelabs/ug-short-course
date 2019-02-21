@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), TodoTaskAdapter.ClickListener {
         }
     }
 
-    fun addNewTodo(v: View?) = startActivity(Intent(this@MainActivity, CreateTodoActivity::class.java))
+    fun addNewTodo(v: View?) = startActivity(Intent(this,CreateTodoActivity::class.java))
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_toolbar, menu)

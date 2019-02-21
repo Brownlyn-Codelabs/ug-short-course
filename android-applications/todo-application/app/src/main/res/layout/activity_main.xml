@@ -10,14 +10,15 @@
 
 
     <!--Add Button for new todoItems: this will navigate the user to a new activity-->
-    <com.google.android.material.button.MaterialButton android:layout_width="wrap_content"
-                                                       android:layout_height="wrap_content"
-                                                       style="@style/TodoAppTheme.Button"
-                                                       android:text="Add todo"
-                                                       app:backgroundTint="@color/colorAccent"
-                                                       android:textAllCaps="false"
-                                                       android:onClick="addNewTodo"
-                                                       app:icon="@drawable/ic_add"/>
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TodoAppTheme.Button"
+            android:text="Add todo"
+            app:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:onClick="addNewTodo"
+            app:icon="@drawable/ic_add"/>
 
     <!--Toolbar: Shows the title of the application-->
     <androidx.appcompat.widget.Toolbar android:layout_width="match_parent"
@@ -35,12 +36,13 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
-                                               android:layout_height="match_parent"
-                                               android:id="@+id/grid_todos"
-                                               android:layout_marginTop="?attr/actionBarSize"
-                                               android:scrollbars="vertical"
-                                               android:scrollbarStyle="outsideOverlay"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/grid_todos"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="outsideOverlay"/>
 
 
 </FrameLayout>
