@@ -24,6 +24,7 @@ android {
         }
     }
 
+    // Allows us to use the @Parcelize annotation on data classes
     androidExtensions {
         experimental = true
     }

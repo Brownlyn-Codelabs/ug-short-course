@@ -14,7 +14,7 @@ interface TodoAppDao {
      * Create a new [TodoItem]
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun createTodoItem(todoItem: TodoItem)
+    fun createTodoItem(vararg todoItem: TodoItem)
 
     /**
      * Get a list of all [TodoItem]s
@@ -29,21 +29,37 @@ interface TodoAppDao {
     fun getTodoItem(id: Int): LiveData<TodoItem>
 
     /**
+     * Get a single [TodoItem] by content
+     * Example:
+     * class SearchActivity : AppCompatActivity() {
+     *      private val viewmodel: SomeViewModel by lazy { SomeViewModel() }
+     *
+     *
+     *      override fun onCreate(bundle: Bundle?) {
+     *
+     *          viewmodel.getTodoItem("I like washing").observe(this, Observer ({
+     *              // Do something with the live Data result obtained from
+     *              // the query
+     *          })
+     *
+     *      }
+     *
+     * }
+     *
+     */
+    @Query("SELECT * FROM todos WHERE content LIKE :content")
+    fun getTodoItem(content: String): LiveData<TodoItem>
+
+    /**
      * Delete a single [TodoItem]
      */
     @Delete
-    fun deleteItem(todoItem: TodoItem)
-
-    /**
-     * Delete all [TodoItem]s
-     */
-    @Delete
-    fun deleteAllItems(vararg items: TodoItem)
+    fun deleteItem(vararg todoItem: TodoItem)
 
     /**
      * Update [todoItem]
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTodoItem(todoItem: TodoItem)
 
 }

@@ -11,7 +11,7 @@ import androidx.annotation.StringRes
 import io.codelabs.todoapplication.R
 
 /**
- * prints a message of [Any] object to the console
+ * Prints a message of [Any] object to the console
  */
 fun debugLog(msg: Any?) = println("Todo Application -> ${msg.toString()}")
 
