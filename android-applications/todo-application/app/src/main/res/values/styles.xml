@@ -15,11 +15,11 @@
     <style name="TodoAppTheme.Button" parent="Widget.MaterialComponents.Button.Icon">
         <item name="cornerRadius">@dimen/padding_normal</item><!--16dp-->
         <item name="iconPadding">@dimen/padding_small</item><!--8dp-->
-        <item name="android:layout_margin">@dimen/padding_normal</item><!--16dp-->
+        <item name="android:layout_marginEnd">@dimen/padding_normal</item><!--16dp-->
+        <item name="android:layout_marginBottom">@dimen/padding_normal</item><!--16dp-->
         <item name="android:layout_gravity">bottom|end</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:backgroundTint">?attr/colorAccent</item>
-        <!--<item name="android:padding">@dimen/padding_small</item>-->
     </style>
 
     <style name="TodoAppTheme.Button.Other" parent="TodoAppTheme.Button">
